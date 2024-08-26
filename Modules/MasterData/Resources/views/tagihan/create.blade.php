@@ -31,6 +31,16 @@
                                     <input type="text" id="rupiah" name="nominal" required
                                         class="form-control col-lg-6" inputmode="numeric">
                                 </div>
+                                <div class="form-group">
+                                    <label for="category_id">Kategori</label>
+                                    <select name="category_id" id="category_id" required class="form-control col-lg-6">
+                                        <option selected disabled>Pilih Kategori</option>
+                                        <option value="1">SD</option>
+                                        <option value="2">SMP</option>
+                                        <option value="3">SMA</option>
+                                    </select>
+                                </div>
+
                                 <div class="d-flex justify-content-center col-lg-6">
                                     <a href="{{ route('tagihan.index') }}" class="btn btn-warning mr-2">Kembali</a>
                                     <button type="submit" class="btn btn-primary">Simpan</button>

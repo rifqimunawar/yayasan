@@ -17,9 +17,11 @@ return new class extends Migration {
       $table->string('name');
       $table->unsignedBigInteger('nisn');
       $table->unsignedBigInteger('tahun_masuk_id')->default(1);
+      $table->unsignedBigInteger('category_id')->default(1);
       $table->softDeletes();
       $table->timestamps();
 
+      $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
       $table->foreign('tahun_masuk_id')->references('id')->on('tahun_masuks')->onDelete('cascade');
     });
   }

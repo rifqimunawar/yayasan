@@ -68,6 +68,12 @@ class Backup extends Command
       'siswa_tagihan' => [
         'siswa_tagihan',
       ],
+      'categories' => [
+        'categories',
+      ],
+      'histories' => [
+        'histories',
+      ],
 
     ];
     if ($opt_users == 1 || $arg_type == 'users')

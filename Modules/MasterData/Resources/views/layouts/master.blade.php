@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Role')
+@section('title', 'Master Data')
 @section('content')
     @push('css')
         <!-- CSS Libraries -->

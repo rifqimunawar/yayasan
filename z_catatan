@@ -1,1 +1,13 @@
-pembuatan module = pembayaran
+progress -> membuat ketegori untuk siswa dan filternya 
+
+pembuatan module = history pembayaran
+
+invoice -> 1 bukti lunas, yang ke 2 bukti transaksi
+invoice -> nama berdasarkan user login
+kembalian hapus
+
+button search -> sd/smp/smp
+
+journal 
+	-> from to 
+	-> export excel

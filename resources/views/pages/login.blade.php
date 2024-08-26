@@ -71,19 +71,19 @@
                     </video>
 
 
-                    <div
-                        class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
-                        <div class="login-brand">
+                    <div class=""
+                        style="height: 100vh; position: absolute; top: 0; right: 0; display: flex; align-items: center;">
+                        {{-- <div class="login-brand">
                             <img src="assets/img/stisla-fill.svg" alt="logo" width="100"
                                 class="shadow-light rounded-circle">
-                        </div>
+                        </div> --}}
 
-                        <div class="card card-primary">
-                            <div class="card-header">
+                        <div class="card card-primary" style="height: 100vh; width:20rem">
+                            <div class="card-header" style="margin-top: 3rem">
                                 <h4>Login</h4>
                             </div>
 
-                            <div class="card-body">
+                            <div class="card-body" style="margin-top: 3rem">
                                 <form method="POST" action="/authenticate" class="needs-validation" novalidate="">
                                     @csrf
                                     <div class="form-group">

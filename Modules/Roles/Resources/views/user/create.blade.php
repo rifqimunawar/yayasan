@@ -26,6 +26,10 @@
                                     <input type="text" name="name" required class="form-control">
                                 </div>
                                 <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" id="username" name="name" required class="form-control">
+                                </div>
+                                <div class="form-group">
                                     <label>Email</label>
                                     <input type="email" name="email" required class="form-control">
                                 </div>
@@ -65,3 +69,9 @@
         </div>
     </section>
 @endsection
+<script>
+    document.getElementById('username').addEventListener('input', function(e) {
+        // Menghilangkan spasi dan mengubah menjadi huruf kecil
+        this.value = this.value.replace(/\s+/g, '').toLowerCase();
+    });
+</script>

@@ -14,19 +14,26 @@
         </ul>
     </li>
     <li
-        class="dropdown {{ Request::is('tagihan*') || Request::is('tahun_masuk*') || Request::is('siswa*') ? 'active' : '' }}">
+        class="dropdown {{ Request::is('tagihan*') || Request::is('tahun_masuk*') || Request::is('category*') || Request::is('siswa*') ? 'active' : '' }}">
         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
             <span>Master Data</span></a>
         <ul class="dropdown-menu">
             <li><a class="nav-link" href="{{ route('tahun_masuk.index') }}">Tahun Masuk</a></li>
             <li><a class="nav-link" href="{{ route('tagihan.index') }}">List Tagihan</a></li>
             <li><a class="nav-link" href="{{ route('siswa.index') }}">Data Siswa</a></li>
+            <li><a class="nav-link" href="{{ route('category.index') }}">Kategori</a></li>
         </ul>
     </li>
     <li class="dropdown {{ Request::is('pembayaran*') ? 'active' : '' }}">
         <a href="{{ route('pembayaran.index') }}">
             <i class="fas fa-columns"></i>
             <span>Pembayaran</span>
+        </a>
+    </li>
+    <li class="dropdown {{ Request::is('history*') ? 'active' : '' }}">
+        <a href="{{ route('history.index') }}">
+            <i class="fas fa-columns"></i>
+            <span>Journal</span>
         </a>
     </li>
 

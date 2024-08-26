@@ -29,6 +29,26 @@
 
                                 </div>
 
+                                <div class="form-group mt-3 mb-3">
+                                    <label for="angkatan">Tahun Angkatan Masuk</label>
+                                    <select name="angkatan" class="form-control select2 ">
+                                        <option selected disabled>-- Pilih Angkatan --</option>
+                                        @foreach ($tahun as $item)
+                                            <option value="{{ $item->id }}">Siswa Tahun Masuk
+                                                {{ $item->tahun }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group mt-3 mb-3">
+                                    <label for="category_id">Kategori / Tingkatan Siswa</label>
+                                    <select name="category_id" class="form-control select2 ">
+                                        <option selected disabled>-- Pilih Kategori --</option>
+                                        <option value="1">-- SD --</option>
+                                        <option value="2">-- SMP --</option>
+                                        <option value="3">-- SMA --</option>
+                                    </select>
+                                </div>
                                 <p>Pastikan format file excel anda seperti contoh file
                                     <a href="{{ asset('assets/format-import-data-siswa.xlsx') }}" download>
                                         <strong>disini!</strong>

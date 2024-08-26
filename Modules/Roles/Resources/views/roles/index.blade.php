@@ -17,8 +17,8 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>Table {{ $title }}</h4>
-                            <a href="{{ route('roles.create') }}" class="ml-2 btn btn-primary"> Tambah <ion-icon
-                                    name="add-circle-outline"></ion-icon><i class="ml-2 fa fa-plus"></i></a>
+                            {{-- <a href="{{ route('roles.create') }}" class="ml-2 btn btn-primary"> Tambah <ion-icon
+                                    name="add-circle-outline"></ion-icon><i class="ml-2 fa fa-plus"></i></a> --}}
 
                         </div>
                         <div class="card-body">

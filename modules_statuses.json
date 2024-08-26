@@ -2,5 +2,6 @@
     "Roles": true,
     "Dashboard": true,
     "MasterData": true,
-    "Pembayaran": true
+    "Pembayaran": true,
+    "History": true
 }

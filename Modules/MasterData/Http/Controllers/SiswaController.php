@@ -2,10 +2,13 @@
 
 namespace Modules\MasterData\Http\Controllers;
 
+use App\Exports\SiswaCategoryExport;
+use App\Exports\SiswaExport;
 use App\Imports\SiswaImport;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Maatwebsite\Excel\Facades\Excel;
+use Modules\MasterData\Entities\Category;
 use Modules\MasterData\Entities\Siswa;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Validator;
@@ -18,17 +21,26 @@ class SiswaController extends Controller
    * Display a listing of the resource.
    * @return Renderable
    */
-  public function index()
+  public function index(Request $request)
   {
     $title = 'Data Siswa';
-    $data = Siswa::with('tahunMasuk')->get();
+    $search = $request->input('search');
 
-    $alert = 'Delete Data!';
-    $text = "Are you sure you want to delete?";
-    confirmDelete($alert, $text);
+    if ($search) {
+      $data = Siswa::with(['tahunMasuk', 'category'])
+        ->where('category_id', 'like', '%' . $search . '%')
+        ->latest()
+        ->get();
+    } else {
+      $data = Siswa::with(['tahunMasuk', 'category'])->get();
+    }
 
-    return view('masterdata::siswa.index', ['data' => $data, 'title' => $title]);
+    return view('masterdata::siswa.index', [
+      'data' => $data,
+      'title' => $title
+    ]);
   }
+
 
   /**
    * Show the form for creating a new resource.
@@ -137,25 +149,26 @@ class SiswaController extends Controller
   public function createImport()
   {
     $title = 'Data Siswa';
-    return view('masterdata::siswa.create-import', ['title' => $title]);
+    $tahun = TahunMasuk::latest()->get();
+    return view('masterdata::siswa.create-import', ['tahun' => $tahun, 'title' => $title]);
   }
 
   public function import(Request $request)
   {
-    // Validasi file yang diupload
     $validator = Validator::make($request->all(), [
       'file' => 'required|mimes:xlsx,csv,xls',
+      'angkatan' => 'required',
+      'category_id' => 'required',
     ]);
 
-    // Jika validasi gagal, kembalikan dengan error
+    // dd($request);
     if ($validator->fails()) {
       return redirect()->back()->withErrors($validator)->withInput();
     }
 
-    // Jika validasi sukses, lanjutkan dengan proses import
-    // Misalnya, menggunakan SiswaImport untuk mengimpor data
     try {
-      Excel::import(new SiswaImport, $request->file('file'));
+      Excel::import(new SiswaImport($request->angkatan, $request->category_id), $request->file('file'));
+
       Alert::success('Success', 'Data berhasil diimpor');
     } catch (\Exception $e) {
       Alert::error('Oops...', 'Terjadi kesalahan saat mengimport data, mohon perbaiki data');
@@ -163,6 +176,19 @@ class SiswaController extends Controller
     }
 
     return redirect()->route('siswa.index');
+  }
+
+
+
+  public function export()
+  {
+    return Excel::download(new SiswaExport, 'siswa.xlsx');
+  }
+
+  public function exportKategori($id)
+  {
+    $category = Category::findOrFail($id);
+    return Excel::download(new SiswaCategoryExport($id), 'siswa-' . $category->name . '.xlsx');
   }
 
 }

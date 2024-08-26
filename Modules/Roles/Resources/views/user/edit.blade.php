@@ -27,6 +27,11 @@
                                         class="form-control">
                                 </div>
                                 <div class="form-group">
+                                    <label>Username</label>
+                                    <input type="text" id="username" name="username" required class="form-control"
+                                        value="{{ $data->username }}">
+                                </div>
+                                <div class="form-group">
                                     <label>Email</label>
                                     <input type="email" value="{{ $data->email }}" name="email" required
                                         class="form-control">
@@ -68,3 +73,9 @@
         </div>
     </section>
 @endsection
+<script>
+    document.getElementById('username').addEventListener('input', function(e) {
+        // Menghilangkan spasi dan mengubah menjadi huruf kecil
+        this.value = this.value.replace(/\s+/g, '').toLowerCase();
+    });
+</script>
