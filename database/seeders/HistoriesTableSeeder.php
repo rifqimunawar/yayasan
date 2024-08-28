@@ -45,6 +45,19 @@ class HistoriesTableSeeder extends Seeder
                 'created_at' => '2024-08-26 23:01:28',
                 'updated_at' => '2024-08-26 23:01:28',
             ),
+            2 => 
+            array (
+                'id' => 11,
+                'nominal' => 500000,
+                'tanggal_transaksi' => '2024-08-27 22:26:43',
+                'siswa_id' => 514,
+                'tagihan_id' => 8,
+                'siswa_tagihan_id' => 3,
+                'user_id' => 1,
+                'deleted_at' => NULL,
+                'created_at' => '2024-08-27 22:26:43',
+                'updated_at' => '2024-08-27 22:26:43',
+            ),
         ));
         
         

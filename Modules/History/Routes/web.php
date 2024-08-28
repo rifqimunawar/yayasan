@@ -15,11 +15,9 @@
 //     Route::get('/', 'HistoryController@index');
 // });
 
-Route::middleware(['auth', 'roles:1'])->group(function () {
+Route::middleware(['auth', 'roles:1,2'])->group(function () {
   Route::get('/history', 'HistoryController@index')->name('history.index');
-  Route::get('/history/create', 'HistoryController@create')->name('history.create');
-  Route::post('/history', 'HistoryController@store')->name('history.store');
-  Route::get('/history/{id}/edit', 'HistoryController@edit')->name('history.edit');
-  Route::post('/history/{id}/update', 'HistoryController@update')->name('history.update');
-  Route::delete('/history/{id}', 'HistoryController@destroy')->name('history.destroy');
+  Route::get('/history/seminggu', 'HistoryController@seminggu')->name('history.seminggu');
+  Route::get('/history/sebulan', 'HistoryController@sebulan')->name('history.sebulan');
+  Route::get('/history/setahun', 'HistoryController@setahun')->name('history.setahun');
 });

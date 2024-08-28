@@ -94,14 +94,17 @@
                             </td>
                             <td class="table_td header_text" width="20%">
                                 <table border="0" class="table2" width="100%">
+                                    <tr style="padding-top: 10px">
+                                        <td style="color: transparent;">|||</td>
+                                        <td> </td>
+                                        <td> </td>
+                                    </tr>
                                     <tr>
                                         <td width="40%">No. Transaksi</td>
                                         <td width="1%">:</td>
                                         <td width="60%">
                                             {{ $data->id }}/{{ $data->siswa->id }}/{{ $data->siswa->tagihans->pluck('id')->implode(', ') }}/{{ \Carbon\Carbon::parse($data->tanggal_transaksi)->format('Y/m/d') }}
                                         </td>
-
-
                                     </tr>
                                     <tr>
                                         <td>Nama</td>

@@ -18,10 +18,10 @@
                         <div class="card-header">
                             <h4>Table {{ $title }}</h4>
 
-                            <div class="d-flex ">
+                            <div class="d-flex">
+                                <!-- Tombol SD -->
                                 <form action="{{ route('history.index') }}" class="ml-4" method="GET">
                                     <div class="input-group mb-3">
-                                        <!-- Tombol SD -->
                                         <input type="hidden" name="search" value="1">
                                         <div class="input-group-append">
                                             <button class="btn btn-warning m-2" type="submit">SD</button>
@@ -29,9 +29,9 @@
                                     </div>
                                 </form>
 
+                                <!-- Tombol SMP -->
                                 <form action="{{ route('history.index') }}" method="GET">
                                     <div class="input-group mb-3">
-                                        <!-- Tombol SMP -->
                                         <input type="hidden" name="search" value="2">
                                         <div class="input-group-append">
                                             <button class="btn btn-info m-2" type="submit">SMP</button>
@@ -39,16 +39,58 @@
                                     </div>
                                 </form>
 
+                                <!-- Tombol SMA -->
                                 <form action="{{ route('history.index') }}" method="GET">
                                     <div class="input-group mb-3">
-                                        <!-- Tombol SMA -->
                                         <input type="hidden" name="search" value="3">
                                         <div class="input-group-append">
                                             <button class="btn btn-secondary m-2" type="submit">SMA</button>
                                         </div>
                                     </div>
                                 </form>
+                                <!-- Pilihan Tanggal -->
+                                <form action="{{ route('history.index') }}" method="GET">
+                                    <div class="input-group-append">
+                                        <select class="form-control form-control-sm" name="search" id="dateRangeSelector"
+                                            onchange="handleDateRangeChange(this)"
+                                            style="height: 35px; margin-top:7px; padding:0; padding-left:25px">
+                                            <option value="">-- Pilih Waktu --</option>
+                                            <option value="{{ \Carbon\Carbon::today()->toDateString() }}">Hari ini</option>
+                                            <option value="{{ \Carbon\Carbon::now()->subDay()->toDateString() }}">Kemarin
+                                            </option>
+                                            <option value="custom">Custom Range dari tanggal ke tanggal</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Input Tanggal Custom Range -->
+                                    <div id="customDateRange" style="display: none; margin-top: 10px;"
+                                        class="card-body shadow lg">
+                                        <label for="">start</label>
+                                        <input type="date" name="from_date" class="form-control form-control-sm"
+                                            placeholder="Dari Tanggal">
+                                        <label for="">end</label>
+                                        <input type="date" name="to_date" class="form-control form-control-sm"
+                                            placeholder="Ke Tanggal">
+                                        <button type="submit" class="btn btn-primary btn-sm"
+                                            style="margin-top: 5px;">Filter</button>
+                                    </div>
+                                </form>
+
+                                <!-- Script untuk Menangani Custom Range -->
+                                <script>
+                                    function handleDateRangeChange(select) {
+                                        const customDateRange = document.getElementById('customDateRange');
+                                        if (select.value === 'custom') {
+                                            customDateRange.style.display = 'block';
+                                        } else {
+                                            customDateRange.style.display = 'none';
+                                            select.form.submit(); // Kirim form jika bukan 'custom'
+                                        }
+                                    }
+                                </script>
+
                             </div>
+
 
                         </div>
                         <div class="card-body">

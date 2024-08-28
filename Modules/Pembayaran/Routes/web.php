@@ -16,7 +16,7 @@
 // });
 
 
-Route::middleware(['auth', 'roles:1'])->group(function () {
+Route::middleware(['auth', 'roles:1,2'])->group(function () {
   Route::get('/pembayaran', 'PembayaranController@index')->name('pembayaran.index');
   Route::get('/pembayaran/create', 'PembayaranController@create')->name('pembayaran.create');
   Route::post('/pembayaran', 'PembayaranController@store')->name('pembayaran.store');

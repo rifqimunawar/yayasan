@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>@yield('title') &mdash; {{ config('app.name') }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     {{-- @include('partials.page-css') --}}
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -49,11 +50,6 @@
                     </div>
                     @include('partials.sidebar')
 
-                    {{-- <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
-                        <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
-                            <i class="fas fa-rocket"></i> Documentation
-                        </a>
-                    </div> --}}
                 </aside>
             </div>
 

@@ -47,12 +47,14 @@ class UserController extends Controller
    */
   public function store(Request $request)
   {
+
+    // dd($request);
     // Rule validasi untuk name dan password
     $rules = [
       'name' => 'required|unique:users,name',
       'username' => 'required|unique:users,username|regex:/^[a-z0-9]+$/',
       'email' => 'required|unique:users,email',
-      'password' => 'required|min:8',
+      'password' => 'required|min:5',
       'role_id' => 'required',
     ];
 
@@ -65,7 +67,7 @@ class UserController extends Controller
       'email.required' => 'Email wajib diisi.',
       'email.unique' => 'Email sudah digunakan.',
       'password.required' => 'Password wajib diisi.',
-      'password.min' => 'Password minimal 8 karakter.',
+      'password.min' => 'Password minimal 5 karakter.',
       'role_id.required' => 'Role user harus dipilih.',
     ];
 
@@ -81,6 +83,7 @@ class UserController extends Controller
     // Buat user baru
     User::create([
       'name' => $request->name,
+      'username' => $request->username,
       'email' => $request->email,
       'role_id' => $request->role_id,
       'password' => Hash::make($request->password),

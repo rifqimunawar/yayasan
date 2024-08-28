@@ -11,7 +11,7 @@
 |
 */
 
-Route::middleware(['auth', 'roles:1'])->group(function () {
+Route::middleware(['auth', 'roles:1,2'])->group(function () {
   Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
   Route::get('/dashboard/create', 'DashboardController@create')->name('dashboard.create');
   Route::post('/dashboard', 'DashboardController@store')->name('dashboard.store');
