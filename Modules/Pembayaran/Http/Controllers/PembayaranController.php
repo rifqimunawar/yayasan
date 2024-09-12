@@ -157,7 +157,13 @@ class PembayaranController extends Controller
   public function invoice($id)
   {
     $title = 'Data Siswa';
-    $data = History::with(['siswa.tagihans', 'users'])->findOrFail($id);
+    $history = History::findOrFail($id);
+    $data = History::with([
+      'siswa.tagihans' => function ($query) use ($history) {
+        $query->where('tagihan_id', $history->tagihan_id);
+      },
+      'users'
+    ])->findOrFail($id);
 
     return view('pembayaran::pembayaran.invoice', ['data' => $data, 'title' => $title]);
   }

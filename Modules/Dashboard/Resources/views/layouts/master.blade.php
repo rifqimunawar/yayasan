@@ -67,13 +67,16 @@
                         <h4>Statistics</h4>
                         <div class="card-header-action">
                             <div class="btn-group">
-                                <a href="#" class="btn btn-primary">Week</a>
-                                <a href="#" class="btn">Month</a>
+                                <button id="btn-seminggu" class="btn btn-primary">Seminggu</button>
+                                <button id="btn-sebulan" class="btn btn-primary">Sebulan</button>
+                                <button id="btn-3sebulan" class="btn btn-primary">3 Bulan</button>
+                                <button id="btn-6sebulan" class="btn btn-primary">6 Bulan</button>
+                                <button id="btn-setahun" class="btn btn-primary">Setahun</button>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <canvas id="myChart" height="80"></canvas>
+                        <canvas id="myChart" height="100"></canvas>
                     </div>
                 </div>
             </div>
@@ -91,66 +94,104 @@
         <!-- Page Specific JS File -->
         <script src="{{ asset('assets/js/page/index.js') }}"></script>
 
+
         {{-- ==================================================================================== --}}
         <script>
-            var ctx = document.getElementById("myChart").getContext('2d');
-            var myChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ["January", "February", "March", "April", "May", "June", "July", "August"],
-                    datasets: [{
-                            label: 'Sales',
-                            data: [3200, 1800, 4305, 3022, 6310, 5120, 5880, 6154],
+            $(document).ready(function() {
+                var ctx = document.getElementById("myChart").getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [{
+                            label: 'Nominal',
+                            data: [],
                             borderWidth: 2,
                             backgroundColor: 'rgba(63,82,227,.8)',
-                            borderWidth: 0,
-                            borderColor: 'transparent',
+                            borderColor: 'rgba(63,82,227,1)',
                             pointBorderWidth: 0,
                             pointRadius: 3.5,
                             pointBackgroundColor: 'transparent',
                             pointHoverBackgroundColor: 'rgba(63,82,227,.8)',
-                        },
-                        {
-                            label: 'Budget',
-                            data: [2207, 3403, 2200, 5025, 2302, 4208, 3880, 4880],
-                            borderWidth: 2,
-                            backgroundColor: 'rgba(254,86,83,.7)',
-                            borderWidth: 0,
-                            borderColor: 'transparent',
-                            pointBorderWidth: 0,
-                            pointRadius: 3.5,
-                            pointBackgroundColor: 'transparent',
-                            pointHoverBackgroundColor: 'rgba(254,86,83,.8)',
-                        }
-                    ]
-                },
-                options: {
-                    legend: {
-                        display: false
-                    },
-                    scales: {
-                        yAxes: [{
-                            gridLines: {
-                                // display: false,
-                                drawBorder: false,
-                                color: '#f2f2f2',
-                            },
-                            ticks: {
-                                beginAtZero: true,
-                                stepSize: 1500,
-                                callback: function(value, index, values) {
-                                    return '$' + value;
-                                }
-                            }
-                        }],
-                        xAxes: [{
-                            gridLines: {
-                                display: false,
-                                tickMarkLength: 15,
-                            }
                         }]
                     },
+                    options: {
+                        legend: {
+                            display: false
+                        },
+                        scales: {
+                            yAxes: [{
+                                gridLines: {
+                                    drawBorder: true,
+                                    color: '#f2f2f2',
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                    callback: function(value) {
+                                        return value + 'k';
+                                    }
+                                }
+                            }],
+                            xAxes: [{
+                                gridLines: {
+                                    display: false,
+                                    tickMarkLength: 15,
+                                }
+                            }]
+                        },
+                    }
+                });
+
+                function updateChart(route) {
+                    $.ajax({
+                        url: route,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log(data);
+
+                            var nominalData = [];
+                            var tanggalLabels = [];
+
+                            data.forEach(function(item) {
+                                nominalData.push(parseInt(item.nominal));
+                                tanggalLabels.push(item.tanggal_transaksi);
+                            });
+
+                            // Update chart data
+                            myChart.data.labels = tanggalLabels;
+                            myChart.data.datasets[0].data = nominalData;
+                            myChart.update(); // Refresh chart
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("Error: " + status + " " + error);
+                        }
+                    });
                 }
+
+                // Event listener untuk tombol
+                $('#btn-seminggu').on('click', function() {
+                    updateChart('{{ route('dashboard.get_ajax_statistik_seminggu') }}');
+                });
+
+                $('#btn-sebulan').on('click', function() {
+                    updateChart('{{ route('dashboard.get_ajax_statistik_sebulan') }}');
+                });
+
+                $('#btn-3sebulan').on('click', function() {
+                    updateChart('{{ route('dashboard.get_ajax_statistik_3sebulan') }}');
+                });
+
+                $('#btn-6sebulan').on('click', function() {
+                    updateChart('{{ route('dashboard.get_ajax_statistik_6sebulan') }}');
+                });
+
+                $('#btn-setahun').on('click', function() {
+                    updateChart('{{ route('dashboard.get_ajax_statistik_setahun') }}');
+                });
+
+                // Load data awal
+                updateChart('{{ route('dashboard.get_ajax_statistik') }}');
             });
         </script>
     @endpush

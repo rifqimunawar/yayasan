@@ -13,9 +13,10 @@
 
 Route::middleware(['auth', 'roles:1,2'])->group(function () {
   Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
-  Route::get('/dashboard/create', 'DashboardController@create')->name('dashboard.create');
-  Route::post('/dashboard', 'DashboardController@store')->name('dashboard.store');
-  Route::get('/dashboard/{id}/edit', 'DashboardController@edit')->name('dashboard.edit');
-  Route::post('/dashboard/{id}/update', 'DashboardController@update')->name('dashboard.update');
-  Route::delete('/dashboard/{id}', 'DashboardController@destroy')->name('dashboard.destroy');
+  Route::get('/dashboard/get_ajax_statistik', 'DashboardController@get_ajax_statistik')->name('dashboard.get_ajax_statistik');
+  Route::get('/dashboard/get_ajax_statistik_seminggu', 'DashboardController@get_ajax_statistik_seminggu')->name('dashboard.get_ajax_statistik_seminggu');
+  Route::get('/dashboard/get_ajax_statistik_sebulan', 'DashboardController@get_ajax_statistik_sebulan')->name('dashboard.get_ajax_statistik_sebulan');
+  Route::get('/dashboard/get_ajax_statistik_3sebulan', 'DashboardController@get_ajax_statistik_3sebulan')->name('dashboard.get_ajax_statistik_3sebulan');
+  Route::get('/dashboard/get_ajax_statistik_6sebulan', 'DashboardController@get_ajax_statistik_6sebulan')->name('dashboard.get_ajax_statistik_6sebulan');
+  Route::get('/dashboard/get_ajax_statistik_setahun', 'DashboardController@get_ajax_statistik_setahun')->name('dashboard.get_ajax_statistik_setahun');
 });
